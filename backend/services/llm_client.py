@@ -1,3 +1,4 @@
+import asyncio
 import json
 import re
 import httpx
@@ -12,6 +13,7 @@ class LLMClient:
         self.base = "https://generativelanguage.googleapis.com/v1beta"
 
     async def generate(self, prompt: str, system: str = "") -> str:
+        await asyncio.sleep(10)  # avoid rate limiting
         url = f"{self.base}/models/{self.model}:generateContent?key={self.api_key}"
         contents = []
         if system:
