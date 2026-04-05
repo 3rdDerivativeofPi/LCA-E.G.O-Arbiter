@@ -1,0 +1,17 @@
+Position: Python Backend Developer
+Company: TechViet Solutions
+
+We are looking for a Python Backend Developer with 3+ years of experience.
+
+Required Skills: Python, FastAPI, PostgreSQL, REST APIs, Git
+Preferred Skills: Docker, Redis, AWS, CI/CD
+
+Responsibilities:
+- Design and build scalable backend services
+- Write clean, maintainable code
+- Collaborate with frontend and DevOps teams
+
+Requirements:
+- 3+ years of backend development experience
+- Bachelor's degree in Computer Science or related field
+- Strong problem-solving skills

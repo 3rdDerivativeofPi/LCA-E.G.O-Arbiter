@@ -1,0 +1,18 @@
+Alice Nguyen
+Email: alice@email.com
+
+Summary:
+Backend developer with 3 years of experience building REST APIs and microservices.
+
+Skills:
+Python, FastAPI, PostgreSQL, Git, Docker, REST APIs
+
+Experience:
+Backend Developer - Acme Corp (2021 - 2024)
+- Built and maintained REST APIs serving 10k+ users
+- Designed PostgreSQL database schemas
+- Deployed services using Docker
+
+Education:
+Bachelor's degree in Computer Science
+Hanoi University of Science and Technology, 2021
