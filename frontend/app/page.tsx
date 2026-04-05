@@ -62,72 +62,57 @@ export default function Home() {
     setFileName(null);
   };
 
-  const computeScore = () => {
-    console.log("[v0] jobDescription:", jobDescription);
-    console.log("[v0] userCV:", userCV);
-    if (
-      !jobDescription ||
-      !jobDescription.trim() ||
-      !userCV ||
-      !userCV.trim()
-    ) {
+  const computeScore = async () => {
+    if (!jobDescription?.trim() || !userCV?.trim()) {
       alert("Please fill in both Job Description and CV");
       return;
     }
 
-    // Extract keywords from job description
-    const jdKeywords = extractKeywords(jobDescription.toLowerCase());
-    const cvKeywords = extractKeywords(userCV.toLowerCase());
+    try {
+      const formData = new FormData();
+      formData.append(
+        "cv_file",
+        new Blob([userCV], { type: "text/plain" }),
+        cvFileName || "cv.txt",
+      );
+      formData.append("jd_text", jobDescription);
+      formData.append(
+        "weights",
+        JSON.stringify({
+          skills: skillsWeight / 100,
+          experience: experienceWeight / 100,
+          education: educationWeight / 100,
+        }),
+      );
 
-    // Find matches
-    const matchedSkills = findMatches(jdKeywords.skills, cvKeywords.all);
-    const matchedExperience = findMatches(
-      jdKeywords.experience,
-      cvKeywords.all,
-    );
-    const matchedEducation = findMatches(jdKeywords.education, cvKeywords.all);
+      const response = await fetch("http://localhost:8000/evaluate/", {
+        method: "POST",
+        body: formData,
+      });
 
-    // Calculate weighted score
-    const skillsScore =
-      (matchedSkills.length / Math.max(jdKeywords.skills.length, 1)) * 100;
-    const experienceScore =
-      (matchedExperience.length / Math.max(jdKeywords.experience.length, 1)) *
-      100;
-    const educationScore =
-      (matchedEducation.length / Math.max(jdKeywords.education.length, 1)) *
-      100;
+      const data = await response.json();
+      console.log("Backend response:", data);
 
-    const totalWeight = skillsWeight + experienceWeight + educationWeight;
-    const score = Math.round(
-      (skillsScore * skillsWeight +
-        experienceScore * experienceWeight +
-        educationScore * educationWeight) /
-        totalWeight,
-    );
+      if (!response.ok || !data.success) {
+        alert(`Backend error: ${data.detail || "Unknown error"}`);
+        return;
+      }
 
-    // Generate insights
-    const strengths = generateStrengths(
-      matchedSkills,
-      matchedExperience,
-      matchedEducation,
-    );
-    const weaknesses = generateWeaknesses(
-      jdKeywords,
-      matchedSkills,
-      matchedExperience,
-      matchedEducation,
-    );
-    const recommendations = generateRecommendations(weaknesses);
+      const d = data.data;
 
-    setResult({
-      score: Math.min(100, Math.max(0, score)),
-      matchedSkills,
-      matchedExperience,
-      matchedEducation,
-      strengths,
-      weaknesses,
-      recommendations,
-    });
+      setResult({
+        score: d.score.total,
+        matchedSkills: d.parsed_cv.skills || [],
+        matchedExperience: [],
+        matchedEducation: [],
+        strengths: d.explanation.strengths || [],
+        weaknesses: d.explanation.weaknesses || [],
+        recommendations: [d.explanation.overall_fit],
+      });
+    } catch (error) {
+      alert("Error connecting to backend. Make sure FastAPI is running.");
+      console.error(error);
+    }
   };
 
   const extractKeywords = (text: string) => {
