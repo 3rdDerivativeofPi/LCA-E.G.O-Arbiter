@@ -1,5 +1,5 @@
 import numpy as np
-from config import DEFAULT_WEIGHTS
+from ..config import DEFAULT_WEIGHTS
 
 
 def cosine_similarity(a: list[float], b: list[float]) -> float:

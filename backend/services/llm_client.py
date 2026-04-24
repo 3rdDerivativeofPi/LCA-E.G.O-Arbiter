@@ -2,7 +2,7 @@ import asyncio
 import json
 import re
 import httpx
-from config import GEMINI_API_KEY, LLM_MODEL, EMBEDDING_MODEL
+from ..config import GEMINI_API_KEY, LLM_MODEL, EMBEDDING_MODEL
 
 
 class LLMClient:
