@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import evaluate
+from routers import evaluate
 
 app = FastAPI(title="E.G.O: Arbiter API", version="1.0.0")
 

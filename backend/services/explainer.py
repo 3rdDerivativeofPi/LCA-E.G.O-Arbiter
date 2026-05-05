@@ -9,17 +9,17 @@ SYSTEM = (
 
 async def explain(cv: dict, jd: dict, score: dict) -> dict:
     prompt = f"""
-Given the candidate profile and job description below, provide an explainability report.
+Analyze this candidate against the job description. Be concise.
 
 CANDIDATE: {cv}
-JOB DESCRIPTION: {jd}
-MATCH SCORES: {score}
+JOB: {jd}
+SCORES: {score}
 
-Return JSON with exactly these keys:
+Return ONLY this JSON, no extra text:
 {{
-  "strengths": ["bullet 1", "bullet 2"],
-  "weaknesses": ["bullet 1", "bullet 2"],
-  "overall_fit": "2-3 sentence summary",
+  "strengths": ["max 3 short bullets"],
+  "weaknesses": ["max 3 short bullets"],
+  "overall_fit": "one sentence only",
   "recommendation": "Strongly Recommended | Recommended | Consider | Not Recommended"
 }}
 """

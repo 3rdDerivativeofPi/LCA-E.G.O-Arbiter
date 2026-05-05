@@ -42,7 +42,11 @@ export default function App() {
       const formData = new FormData();
       formData.append("cv_file", cvFile);
       formData.append("jd_text", jobDescription);
-      formData.append("weights", JSON.stringify(weights));
+      formData.append("weights", JSON.stringify({
+        skills: weights.skills / 100,
+        experience: weights.experience / 100,
+        education: weights.education / 100,
+      }));
 
       const response = await fetch(`${BACKEND_URL}/evaluate/`, {
         method: "POST",
@@ -52,11 +56,22 @@ export default function App() {
       if (!response.ok) throw new Error("Analysis failed");
 
       const data = await response.json();
+    
+      // Normalize the score to 0-100 range
+      let overallScore = data.data.score.total;
+      if (overallScore > 100) {
+        overallScore = overallScore / 100;  // Fix double-multiplication from backend
+      }
+
       setResult({
         candidate: data.data.candidate,
         score: {
-          overall: data.data.score.total,
-          breakdown: data.data.score.breakdown,
+          overall: Math.round(overallScore),
+          breakdown: {
+            skills: data.data.score.breakdown.skills > 100 ? Math.round(data.data.score.breakdown.skills / 100) : data.data.score.breakdown.skills,
+            experience: data.data.score.breakdown.experience > 100 ? Math.round(data.data.score.breakdown.experience / 100) : data.data.score.breakdown.experience,
+            education: data.data.score.breakdown.education > 100 ? Math.round(data.data.score.breakdown.education / 100) : data.data.score.breakdown.education,
+          },
           details: data.data.score.details || { skills: { matched: [] }, experience: { matched_titles: [] }, education: { matched_degrees: [] } }
         },
         explanation: data.data.explanation,

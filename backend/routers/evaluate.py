@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
-from ..services.agent import run_pipeline
+from services.agent import run_pipeline
 import json
 import traceback
 
