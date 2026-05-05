@@ -1,0 +1,3 @@
+Charlie Le. Skills: Python, Django, PostgreSQL, Redis, AWS.
+    Experience: Full Stack Developer at Startup (4 years) - Built web apps.
+    Education: Bachelor's in Software Engineering, Da Nang University, 2020.

@@ -1,3 +1,164 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Base ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0a0a;
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.container     { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+.grid-2        { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; }
+.grid-equal    { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.flex-col      { display: flex; flex-direction: column; gap: 24px; }
+
+/* ── Cards ── */
+.card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 24px;
+}
+.card-dark {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* ── Typography ── */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #fbbf24;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.subtitle  { color: #999; font-size: 14px; font-style: italic; }
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.label-green { color: #4ade80; }
+.label-red   { color: #ef4444; }
+.label-gold  { color: #fbbf24; }
+
+/* ── Form elements ── */
+.input, .textarea {
+  width: 100%;
+  padding: 12px;
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 16px;
+}
+.textarea  { min-height: 120px; resize: vertical; }
+.slider    { width: 100%; accent-color: #fbbf24; margin-bottom: 12px; }
+
+/* ── Buttons ── */
+.btn {
+  width: 100%;
+  padding: 12px 24px;
+  background: #fbbf24;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 16px;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid #fbbf24;
+  color: #fbbf24;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.btn-outline:hover { background: #fbbf2422; }
+
+/* ── Tabs ── */
+.tabs        { display: flex; gap: 8px; margin-bottom: 32px; }
+.tab {
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+.tab.active  { background: #fbbf24; color: #000; border-color: #fbbf24; }
+
+/* ── Score display ── */
+.score-value       { font-size: 32px; font-weight: bold; color: #fbbf24; margin-bottom: 8px; }
+.score-label       { font-size: 12px; color: #999; text-transform: uppercase; }
+.score-card        { text-align: center; }
+
+/* ── Lists ── */
+.list-green { background: #0f3a0f; border: 1px solid #333; border-radius: 8px; padding: 16px; }
+.list-red   { background: #3a0f0f; border: 1px solid #333; border-radius: 8px; padding: 16px; }
+.list-item {
+  padding: 8px;
+  margin-bottom: 8px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  font-size: 13px;
+  border-left: 3px solid #fbbf24;
+}
+
+/* ── Leaderboard ── */
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.leaderboard-row:hover { border-color: #fbbf24; cursor: pointer; }
+.rank-badge {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fbbf24;
+  width: 32px;
+}
+
+/* ── Utility ── */
+.text-gold   { color: #fbbf24; }
+.text-green  { color: #4ade80; }
+.text-red    { color: #ef4444; }
+.text-muted  { color: #999; }
+.text-sm     { font-size: 13px; }
+.mt-8        { margin-top: 8px; }
+.mt-16       { margin-top: 16px; }
+.mb-16       { margin-bottom: 16px; }
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #666;
+}

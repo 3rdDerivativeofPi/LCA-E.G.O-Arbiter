@@ -1,0 +1,3 @@
+Alice Nguyen. Skills: Python, FastAPI, PostgreSQL, Git, Docker.
+    Experience: Backend Developer at Acme (3 years) - Built REST APIs.
+    Education: Bachelor's in Computer Science, Hanoi University, 2021.

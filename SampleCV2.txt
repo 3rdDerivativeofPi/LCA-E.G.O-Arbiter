@@ -1,0 +1,3 @@
+Bob Tran. Skills: Java, Spring Boot, MySQL.
+    Experience: Software Engineer at Tech Corp (2 years) - Built microservices.
+    Education: Bachelor's in Information Technology, HCM University, 2022.
