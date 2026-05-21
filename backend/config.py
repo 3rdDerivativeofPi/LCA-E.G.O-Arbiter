@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Ollama models (local, no API key needed)
-LLM_MODEL = os.getenv("LLM_MODEL", "llama3.2")
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "bge-m3")
+LLM_MODEL = os.getenv("LLM_MODEL", "mistral")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "nomic-embed-text")
 
 # Keep Gemini key optional in case we need fallback
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
