@@ -182,5 +182,5 @@ WEIGHT_EDUCATION=0.20
 
 ## Team
 
-**LimComAI (Team LCA)**
+**Logic, Compliance & Arbitration (Team LCA)**
 - Hoàng Hữu Quang — AI Lead, Backend Architecture
