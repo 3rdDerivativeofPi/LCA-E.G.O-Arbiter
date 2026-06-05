@@ -3,17 +3,17 @@ from services.explainer import explain
 
 async def test():
     cv = {
-        "name": "Alice",
+        "name": "Nguyễn Thị Lan",
         "skills": ["Python", "FastAPI", "PostgreSQL"],
-        "experience": [{"title": "Backend Developer", "company": "Acme", "duration": "3 years", "description": "Built REST APIs"}],
-        "education": [{"degree": "Bachelor's in Computer Science", "institution": "Hanoi University", "year": "2021"}]
+        "experience": [{"title": "Lập trình viên Backend", "company": "Công ty ABC", "duration": "3 năm", "description": "Xây dựng API RESTful và microservices"}],
+        "education": [{"degree": "Cử nhân Khoa học Máy tính", "institution": "Đại học Bách Khoa Hà Nội", "year": "2021"}]
     }
     jd = {
-        "title": "Python Backend Developer",
+        "title": "Lập trình viên Backend Python",
         "required_skills": ["Python", "FastAPI", "PostgreSQL"],
         "preferred_skills": ["Docker", "Redis"],
-        "experience_required": "3+ years",
-        "education_required": "Bachelor's in Computer Science"
+        "experience_required": "Hơn 3 năm kinh nghiệm",
+        "education_required": "Cử nhân Khoa học Máy tính"
     }
     score = {
         "total": 77.5,
@@ -22,6 +22,6 @@ async def test():
 
     result = await explain(cv, jd, score)
     import json
-    print(json.dumps(result, indent=2))
+    print(json.dumps(result, indent=2, ensure_ascii=False))
 
 asyncio.run(test())

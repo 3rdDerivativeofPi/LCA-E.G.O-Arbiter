@@ -5,11 +5,11 @@ async def test():
     jd = {
         "required_skills": ["Python", "FastAPI", "PostgreSQL"],
         "preferred_skills": ["Docker", "Redis"],
-        "experience_required": "3+ years",
-        "education_required": "Bachelor's in Computer Science"
+        "experience_required": "3+ năm kinh nghiệm phát triển backend",
+        "education_required": "Cử nhân Khoa học Máy tính hoặc ngành liên quan"
     }
     result = await embed_jd(jd)
     for field, vector in result.items():
-        print(f"{field}: {len(vector)} dimensions, first 3 values: {vector[:3]}")
+        print(f"{field}: {len(vector)} chiều, 3 giá trị đầu: {vector[:3]}")
 
 asyncio.run(test())

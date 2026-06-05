@@ -1,28 +1,29 @@
 from .llm_client import llm
 
 SYSTEM = (
-    "You are a DEI (Diversity, Equity, Inclusion) compliance auditor. "
-    "Return ONLY valid JSON, no markdown fences."
+    "Bạn là chuyên gia kiểm toán tuân thủ DEI (Đa dạng, Công bằng và Hòa nhập). "
+    "Trả lời ngắn gọn, HOÀN TOÀN bằng tiếng Việt. "
+    "Chỉ trả về JSON hợp lệ, không có markdown hoặc giải thích thêm."
 )
 
 
 async def detect_bias(jd_text: str) -> dict:
     prompt = f"""
-Analyse the job description below for biased or exclusionary language.
-Look for: gendered words, age-coded language, unrealistic experience requirements,
-unnecessary degree requirements, cultural/geographic bias.
+Phân tích mô tả công việc dưới đây để tìm ngôn ngữ thiên kiến hoặc mang tính loại trừ.
+Tìm kiếm: từ ngữ phân biệt giới tính, ngôn ngữ liên quan đến độ tuổi, yêu cầu kinh nghiệm không thực tế,
+yêu cầu bằng cấp không cần thiết, thiên kiến văn hóa hoặc địa lý.
 
-JOB DESCRIPTION:
+MÔ TẢ CÔNG VIỆC:
 {jd_text[:3000]}
 
-Return JSON with exactly these keys:
+Trả về JSON với đúng các khóa sau. Tất cả giá trị chuỗi phải bằng tiếng Việt:
 {{
   "bias_score": 0-100,
   "flags": [
-    {{"phrase": "...", "issue": "...", "suggestion": "..."}}
+    {{"phrase": "cụm từ gốc từ JD", "issue": "mô tả vấn đề bằng tiếng Việt", "suggestion": "gợi ý cải thiện bằng tiếng Việt"}}
   ],
-  "overall_assessment": "string",
-  "improved_excerpt": "rewritten version of the most problematic section"
+  "overall_assessment": "đánh giá tổng thể bằng tiếng Việt",
+  "improved_excerpt": "phiên bản viết lại của phần có vấn đề nhất, bằng tiếng Việt"
 }}
 """
     return await llm.generate_json(prompt, SYSTEM)

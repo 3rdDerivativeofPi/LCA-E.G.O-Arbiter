@@ -3,7 +3,7 @@ import faiss
 
 
 class VectorStore:
-    def __init__(self, dimension: int = 768):
+    def __init__(self, dimension: int = 1024):
         self.dimension = dimension
         self.index = faiss.IndexFlatIP(dimension)  # Inner product (cosine on normalized vectors)
         self.metadata = []  # Store candidate info alongside vectors
@@ -37,4 +37,4 @@ class VectorStore:
 
 
 # Singleton
-vector_store = VectorStore()
+vector_store = VectorStore(dimension=1024)

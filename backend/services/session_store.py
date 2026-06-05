@@ -9,7 +9,7 @@ class Session:
         self.parsed_jd = None
         self.jd_embeddings = None
         self.candidates = []  # list of {id, name, parsed_cv, cv_embeddings}
-        self.vector_store = VectorStore(dimension=768)
+        self.vector_store = VectorStore(dimension=1024)
 
     def add_candidate(self, name: str, parsed_cv: dict, cv_embeddings: dict) -> str:
         candidate_id = str(uuid.uuid4())[:8]

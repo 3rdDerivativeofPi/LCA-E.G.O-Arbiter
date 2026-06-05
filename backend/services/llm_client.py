@@ -5,9 +5,8 @@ import ollama
 
 class LLMClient:
     def __init__(self):
-        from config import LLM_MODEL, EMBEDDING_MODEL
+        from config import LLM_MODEL
         self.model = LLM_MODEL
-        self.embed_model = EMBEDDING_MODEL
 
     async def generate(self, prompt: str, system: str = "") -> str:
         messages = []
@@ -18,29 +17,21 @@ class LLMClient:
         response = ollama.chat(
             model=self.model,
             messages=messages,
-            options={"num_predict": 2048},
+            options={"num_predict": 8192},  # was 2048
         )
         return response["message"]["content"]
 
     async def generate_json(self, prompt: str, system: str = "") -> dict:
         raw = await self.generate(prompt, system)
-        clean = re.sub(r"```json\s*|\s*```", "", raw).strip()
+        # Strip fences — handle leading/trailing whitespace and variation in fence style
+        clean = re.sub(r"^\s*```(?:json)?\s*", "", raw.strip())
+        clean = re.sub(r"\s*```\s*$", "", clean).strip()
         try:
             decoder = json.JSONDecoder()
             result, _ = decoder.raw_decode(clean)
             return result
         except json.JSONDecodeError as e:
             raise ValueError(f"LLM did not return valid JSON: {e}\nRaw: {raw[:300]}")
-
-    async def embed(self, text: str) -> list[float]:
-        response = ollama.embed(
-            model=self.embed_model,
-            input=text,
-        )
-        return response.embeddings[0]
-
-    async def embed_batch(self, texts: list[str]) -> list[list[float]]:
-        return [await self.embed(t) for t in texts]
 
 
 llm = LLMClient()

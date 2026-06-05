@@ -30,9 +30,9 @@ async def run_pipeline(
     # === ADJUST ===
     flags = []
     if score["breakdown"]["skills"] < 30:
-        flags.append("Low skill alignment — consider revising the JD or sourcing differently.")
+        flags.append("Mức độ phù hợp kỹ năng thấp — hãy cân nhắc chỉnh sửa mô tả công việc hoặc tìm nguồn ứng viên khác.")
     if bias_report["bias_score"] > 60:
-        flags.append("High bias score detected in JD — review flagged phrases before publishing.")
+        flags.append("Đã phát hiện điểm thiên vị cao trong JD — hãy xem xét lại các cụm từ bị gắn cờ để đảm bảo JD công bằng và hấp dẫn với đa dạng ứng viên.")
 
     return {
         "candidate": cv.get("name", "Unknown"),

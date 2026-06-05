@@ -1,45 +1,47 @@
 import asyncio
 from services.embedder import embed_cv
-from services.vector_store import vector_store
+from services.vector_store import VectorStore
 
 async def test():
+    # Use a fresh store (not the singleton) to keep test isolated
+    store = VectorStore(dimension=1024)
+
     candidates = [
         {
-            "name": "Alice",
+            "name": "Nguyễn Thị Lan",
             "skills": ["Python", "FastAPI", "PostgreSQL"],
-            "experience": [{"title": "Backend Developer", "company": "Acme", "duration": "3 years", "description": "Built REST APIs"}],
-            "education": [{"degree": "Bachelor's in Computer Science", "institution": "Hanoi University", "year": "2021"}]
+            "experience": [{"title": "Lập trình viên Backend", "company": "Công ty ABC", "duration": "3 năm", "description": "Xây dựng API RESTful"}],
+            "education": [{"degree": "Cử nhân Khoa học Máy tính", "institution": "Đại học Bách Khoa Hà Nội", "year": "2021"}]
         },
         {
-            "name": "Bob",
+            "name": "Trần Văn Bình",
             "skills": ["Java", "Spring Boot", "MySQL"],
-            "experience": [{"title": "Software Engineer", "company": "Tech Corp", "duration": "2 years", "description": "Built microservices"}],
-            "education": [{"degree": "Bachelor's in Information Technology", "institution": "HCM University", "year": "2022"}]
+            "experience": [{"title": "Kỹ sư phần mềm", "company": "Tập đoàn XYZ", "duration": "2 năm", "description": "Xây dựng microservices"}],
+            "education": [{"degree": "Cử nhân Công nghệ Thông tin", "institution": "Đại học Khoa học Tự nhiên TP.HCM", "year": "2022"}]
         },
         {
-            "name": "Charlie",
+            "name": "Lê Thị Châu",
             "skills": ["Python", "Django", "MongoDB"],
-            "experience": [{"title": "Full Stack Developer", "company": "Startup", "duration": "1 year", "description": "Built web apps"}],
-            "education": [{"degree": "Bachelor's in Software Engineering", "institution": "Da Nang University", "year": "2023"}]
+            "experience": [{"title": "Lập trình viên Full Stack", "company": "Startup DEF", "duration": "1 năm", "description": "Phát triển ứng dụng web"}],
+            "education": [{"degree": "Cử nhân Kỹ thuật Phần mềm", "institution": "Đại học Đà Nẵng", "year": "2023"}]
         },
     ]
 
-    # Add all candidates to the vector store
     for c in candidates:
         emb = await embed_cv(c)
-        vector_store.add(emb["skills"], {"name": c["name"]})
-        print(f"Added {c['name']} to vector store")
+        store.add(emb["skills"], {"name": c["name"]})
+        print(f"Đã thêm {c['name']} vào vector store")
 
-    # Search with a query
+    # Search: Python backend profile
     query_cv = {
         "skills": ["Python", "FastAPI", "PostgreSQL"],
         "experience": [],
         "education": []
     }
     query_emb = await embed_cv(query_cv)
-    results = vector_store.search(query_emb["skills"], top_k=3)
+    results = store.search(query_emb["skills"], top_k=3)
 
-    print("\nTop matches:")
+    print("\nKết quả tìm kiếm:")
     for r in results:
         print(f"  {r['meta']['name']}: {r['score']}%")
 
