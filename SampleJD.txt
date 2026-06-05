@@ -1,17 +1,17 @@
-Position: Python Backend Developer
-Company: TechViet Solutions
+Vị trí: Lập trình viên Backend Python
+Công ty: TechViet Solutions
 
-We are looking for a Python Backend Developer with 3+ years of experience.
+Chúng tôi đang tìm kiếm Lập trình viên Backend Python với hơn 3 năm kinh nghiệm.
 
-Required Skills: Python, FastAPI, PostgreSQL, REST APIs, Git
-Preferred Skills: Docker, Redis, AWS, CI/CD
+Kỹ năng bắt buộc: Python, FastAPI, PostgreSQL, REST APIs, Git
+Kỹ năng ưu tiên: Docker, Redis, AWS, CI/CD
 
-Responsibilities:
-- Design and build scalable backend services
-- Write clean, maintainable code
-- Collaborate with frontend and DevOps teams
+Trách nhiệm:
+- Thiết kế và xây dựng các dịch vụ backend có khả năng mở rộng
+- Viết code sạch, dễ bảo trì
+- Phối hợp với nhóm frontend và DevOps
 
-Requirements:
-- 3+ years of backend development experience
-- Bachelor's degree in Computer Science or related field
-- Strong problem-solving skills
+Yêu cầu:
+- Hơn 3 năm kinh nghiệm phát triển backend
+- Cử nhân Khoa học Máy tính hoặc ngành liên quan
+- Kỹ năng giải quyết vấn đề tốt

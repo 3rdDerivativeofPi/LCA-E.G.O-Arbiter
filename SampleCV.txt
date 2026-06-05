@@ -1,18 +1,18 @@
-Alice Nguyen
-Email: alice@email.com
+Nguyễn Thị Lan
+Email: lan.nguyen@email.com
 
-Summary:
-Backend developer with 3 years of experience building REST APIs and microservices.
+Tóm tắt:
+Lập trình viên Backend với 3 năm kinh nghiệm xây dựng REST APIs và microservices.
 
-Skills:
+Kỹ năng:
 Python, FastAPI, PostgreSQL, Git, Docker, REST APIs
 
-Experience:
-Backend Developer - Acme Corp (2021 - 2024)
-- Built and maintained REST APIs serving 10k+ users
-- Designed PostgreSQL database schemas
-- Deployed services using Docker
+Kinh nghiệm:
+Lập trình viên Backend - Công ty Acme (2021 - 2024)
+- Xây dựng và duy trì REST APIs phục vụ hơn 10.000 người dùng
+- Thiết kế schema cơ sở dữ liệu PostgreSQL
+- Triển khai dịch vụ sử dụng Docker
 
-Education:
-Bachelor's degree in Computer Science
-Hanoi University of Science and Technology, 2021
+Học vấn:
+Cử nhân Khoa học Máy tính
+Đại học Bách Khoa Hà Nội, 2021

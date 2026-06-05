@@ -1,3 +1,3 @@
-Bob Tran. Skills: Java, Spring Boot, MySQL.
-    Experience: Software Engineer at Tech Corp (2 years) - Built microservices.
-    Education: Bachelor's in Information Technology, HCM University, 2022.
+Trần Văn Bình. Kỹ năng: Java, Spring Boot, MySQL.
+Kinh nghiệm: Kỹ sư phần mềm tại Tập đoàn Tech Corp (2 năm) - Xây dựng microservices.
+Học vấn: Cử nhân Công nghệ Thông tin, Đại học Khoa học Tự nhiên TP.HCM, 2022.
