@@ -118,4 +118,7 @@ Trả về JSON với đúng các khóa sau:
     if "body" in result:
         result["body"] = _capitalize_sentences(_strip_markdown(result["body"]))
 
+    # Never trust the LLM to echo this back correctly — we already know it.
+    result["type"] = email_type
+
     return result

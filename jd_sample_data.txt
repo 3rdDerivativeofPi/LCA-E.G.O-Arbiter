@@ -1,0 +1,32 @@
+=== DỮ LIỆU MẪU CHO JD BUILDER ===
+(Dùng để test tính năng Generate JD — copy từng dòng vào ô tương ứng)
+
+Tên vị trí (bắt buộc):
+Kỹ sư Dữ liệu (Data Engineer)
+
+Tên công ty:
+FinTech Đông Nam Á
+
+Địa điểm:
+TP. Hồ Chí Minh
+
+Hình thức làm việc:
+Toàn thời gian, hybrid 3 ngày/tuần tại văn phòng Quận 1
+
+Kỹ năng bắt buộc:
+Python, SQL, Apache Airflow, Spark, AWS
+
+Kỹ năng ưu tiên:
+Kafka, dbt, Snowflake, Terraform
+
+Kinh nghiệm yêu cầu:
+Hơn 2 năm kinh nghiệm xây dựng và vận hành data pipeline
+
+Học vấn yêu cầu:
+Cử nhân Khoa học Máy tính, Toán ứng dụng, hoặc ngành liên quan
+
+Ghi chú trách nhiệm công việc:
+xây dựng và bảo trì ETL pipeline, làm việc với data warehouse, đảm bảo chất lượng dữ liệu, phối hợp với team Data Science để cung cấp dữ liệu sạch, tối ưu chi phí hạ tầng cloud, viết tài liệu kỹ thuật cho pipeline
+
+Ghi chú quyền lợi/phúc lợi:
+lương 30-45tr tùy kinh nghiệm, thưởng hiệu suất quý, bảo hiểm sức khỏe cho gia đình, ngân sách học tập 10tr/năm, work from home linh hoạt 2 ngày/tuần, stock option

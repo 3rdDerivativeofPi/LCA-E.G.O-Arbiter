@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Zap } from "lucide-react";
 import EvaluateTab from "./EvaluateTab";
 import RankTab from "./RankTab";
+import GenerateJDTab from "./GenerateJDTab";
 
-type Tab = "evaluate" | "rank";
+type Tab = "evaluate" | "rank" | "generate-jd";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>("evaluate");
@@ -30,9 +31,17 @@ export default function App() {
         >
           ⬆ Rank
         </button>
+        <button
+          className={`tab ${activeTab === "generate-jd" ? "active" : ""}`}
+          onClick={() => setActiveTab("generate-jd")}
+        >
+          📋 Generate JD
+        </button>
       </div>
 
-      {activeTab === "evaluate" ? <EvaluateTab /> : <RankTab />}
+      {activeTab === "evaluate" && <EvaluateTab />}
+      {activeTab === "rank" && <RankTab />}
+      {activeTab === "generate-jd" && <GenerateJDTab />}
     </div>
   );
 }

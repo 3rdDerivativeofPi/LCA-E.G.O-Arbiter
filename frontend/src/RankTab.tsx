@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Mail, X, Copy, Check } from "lucide-react";
 
 const BACKEND_URL = "http://localhost:8000";
 
@@ -17,6 +17,12 @@ interface Explanation {
   recommendation: string;
 }
 
+interface EmailResult {
+  subject: string;
+  body: string;
+  type: "invite" | "reject";
+}
+
 export default function RankTab() {
   const [jdText, setJdText] = useState("");
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -26,6 +32,11 @@ export default function RankTab() {
   const [explanation, setExplanation] = useState<{ id: string; data: Explanation } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
+
+  // Email generation state
+  const [emailLoading, setEmailLoading] = useState<"invite" | "reject" | null>(null);
+  const [emailResult, setEmailResult] = useState<EmailResult | null>(null);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const createSession = async () => {
     if (!jdText.trim()) return alert("Please enter a job description.");
@@ -84,13 +95,53 @@ export default function RankTab() {
 
   const explainCandidate = async (candidateId: string) => {
     if (!sessionId) return;
+    // Reset email panel when switching candidates
+    setEmailResult(null);
+    setEmailCopied(false);
     setStatus("Loading explanation...");
     try {
       const resp = await fetch(`${BACKEND_URL}/rank/session/${sessionId}/explain/${candidateId}`, { method: "POST" });
       const data = await resp.json();
       setExplanation({ id: candidateId, data: data.explanation });
+      setStatus("");
     } catch (err) {
       alert("Failed to load explanation.");
+    }
+  };
+
+  const generateEmail = async (emailType: "invite" | "reject") => {
+    if (!sessionId || !explanation) return;
+    setEmailLoading(emailType);
+    setEmailResult(null);
+    setEmailCopied(false);
+    try {
+      const resp = await fetch(
+        `${BACKEND_URL}/email/session/${sessionId}/candidate/${explanation.id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email_type: emailType }),
+        }
+      );
+      if (!resp.ok) throw new Error("Email generation failed");
+      const data = await resp.json();
+      setEmailResult(data.data);
+    } catch (err) {
+      alert("Failed to generate email.");
+      console.error(err);
+    } finally {
+      setEmailLoading(null);
+    }
+  };
+
+  const copyEmail = async () => {
+    if (!emailResult) return;
+    try {
+      await navigator.clipboard.writeText(`Subject: ${emailResult.subject}\n\n${emailResult.body}`);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      alert("Could not copy. Please select and copy manually.");
     }
   };
 
@@ -180,6 +231,79 @@ export default function RankTab() {
                 </div>
                 <p className="text-sm mt-8 text-muted">{explanation.data.overall_fit}</p>
                 <p className="text-gold mt-8" style={{ fontWeight: "bold" }}>{explanation.data.recommendation}</p>
+
+                {/* Email generation actions */}
+                <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+                  <button
+                    className="btn-outline"
+                    style={{ flex: 1, borderColor: "#4ade80", color: "#4ade80" }}
+                    onClick={() => generateEmail("invite")}
+                    disabled={emailLoading !== null}
+                  >
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                      <Mail size={14} />
+                      {emailLoading === "invite" ? "Đang soạn..." : "Mời phỏng vấn"}
+                    </span>
+                  </button>
+                  <button
+                    className="btn-outline"
+                    style={{ flex: 1, borderColor: "#ef4444", color: "#ef4444" }}
+                    onClick={() => generateEmail("reject")}
+                    disabled={emailLoading !== null}
+                  >
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                      <Mail size={14} />
+                      {emailLoading === "reject" ? "Đang soạn..." : "Từ chối"}
+                    </span>
+                  </button>
+                </div>
+
+                {/* Generated email preview */}
+                {emailResult && (
+                  <div className="card-dark mt-16" style={{ border: "1px solid #fbbf24" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <div className="label label-gold" style={{ marginBottom: 0 }}>
+                        ✉️ Email nháp — {emailResult.type === "invite" ? "Mời phỏng vấn" : "Từ chối"}
+                      </div>
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <button className="btn-outline" onClick={copyEmail} style={{ padding: "4px 10px", fontSize: "12px" }}>
+                          {emailCopied ? (
+                            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Check size={12} /> Copied</span>
+                          ) : (
+                            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Copy size={12} /> Copy</span>
+                          )}
+                        </button>
+                        <button
+                          className="btn-outline"
+                          onClick={() => { setEmailResult(null); setEmailCopied(false); }}
+                          style={{ padding: "4px 8px" }}
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: "13px", marginBottom: "8px" }}>
+                      <span className="text-muted">Tiêu đề: </span>
+                      <span style={{ fontWeight: 500 }}>{emailResult.subject}</span>
+                    </div>
+                    <div
+                      style={{
+                        whiteSpace: "pre-wrap",
+                        fontSize: "13px",
+                        lineHeight: 1.6,
+                        background: "#1a1a1a",
+                        padding: "12px",
+                        borderRadius: "6px",
+                        color: "#ddd",
+                      }}
+                    >
+                      {emailResult.body}
+                    </div>
+                    <p className="text-sm mt-8 text-muted" style={{ fontStyle: "italic" }}>
+                      ⚠️ Đây là bản nháp — vui lòng kiểm tra kỹ trước khi gửi.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
